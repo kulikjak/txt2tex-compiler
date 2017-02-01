@@ -1,0 +1,18 @@
+# Sample configuration file for example file compilation
+# Created by Jakub Kulik
+
+# Document header
+# Default: DocumentHeader Simple Document
+DocumentHeader Wallace Industries Ltd.
+
+# Latex babel package language
+# Default: TexBabel czech
+TexBabel english
+
+# Compile resulting tex file with LaTex
+# Default: LatexCompile false
+LatexCompile true
+
+# Suppress standard output of LaTex compilation (using texfot)
+# Default: LatexSanitizeOutput false
+LatexSanitizeOutput true
