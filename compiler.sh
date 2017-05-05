@@ -254,6 +254,9 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
    tabs=$(echo -e "$line" | awk '{print gsub(/\t/,"")}')
    line=`sed 's/\t//g' <<< $line`
 
+   #escape special characters (& symbol)
+   line=$(sed 's/&/\\&/g' <<< $line)
+
    # state changes based on selected keywords
    if [[ $line == \*\*${Options[TagMain]}* ]]; then
 
