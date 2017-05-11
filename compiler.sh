@@ -3,7 +3,9 @@
 __debug=false   # true/false - show debug informations
 __verbose=false # true/false - show additional informations during translation
 
-config_location="./config.txt" # default linux like config location
+script_location="$(dirname "$0")"   # location of this script
+config_location="$script_location/config.txt"    # default linux like config location
+
 forceconfig=false              # true/false - use configuration file
 
 USAGE=$(cat <<USAGE
@@ -74,14 +76,14 @@ juaZ4dcDwy1Wcuue6Vsr0fMdRYR/T6X5SRChP7aDWbghQ2ft5OJWNOyxIKw+BnavyfNYz0a+EP9h
 swnsC5tTTDjfZZJkxag7ndZHcxD2Tr6+4UUd2A7sXoQkbx1k2Pqj6SjyCzTUFJLdBQAA
 CONFIG_FILE
 )
-   if [ -f config.txt ]; then
+   if [ -f "$script_location/config.txt" ]; then
       printf "Configuration file already exists and will be overwritten.\n"
       printf "Do you want to continue? [Y/n] "
       read prompt
       [[ $prompt == "Y" || $prompt == "y" ]] || return 0
    fi
 
-   echo "$CONFIG_FILE" | base64 -di | gunzip > config.txt
+   echo "$CONFIG_FILE" | base64 -di | gunzip > "$script_location/config.txt"
    echo "Configuration file was successfully generated."
 }
 
@@ -110,7 +112,7 @@ echo "\documentclass[11pt, fleqn]{article}
 
 # check if header image is set
 [ -z "${Options[DocumentLogo]}" ] && echo "\lhead{}" || echo "\usepackage{graphicx}
-\lhead{\includegraphics[width=1.6cm]{${Options[DocumentLogo]}}}"
+\lhead{\includegraphics[width=1.6cm]{$script_location/${Options[DocumentLogo]}}}"
 
 # check if document creation date should be displayed
 if ${Options[DocumentShowDate]}; then
@@ -218,8 +220,8 @@ if [ $forceconfig == true ]; then
             [ -z "${configOptions[$item]}" ] && { war "Tag name cannot be empty: '$item'."; configerror=true; continue; }
             Options[$item]=${configOptions[$item]} ;;
          DocumentLogo)
-            [ -f ${configOptions[$item]} ] || { war "Logo file does not exist."; continue; }
-            [ -r ${configOptions[$item]} ] || { war "Cannot read logo file."; continue; }
+            [ -f "$script_location/${configOptions[$item]}" ] || { war "Logo file does not exist."; continue; }
+            [ -r "$script_location/${configOptions[$item]}" ] || { war "Cannot read logo file."; continue; }
             Options[$item]=${configOptions[$item]} ;;
          *) war "Unknown config option: '$item'"; configerror=true ;;
       esac
