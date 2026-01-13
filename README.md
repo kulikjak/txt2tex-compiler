@@ -34,7 +34,7 @@ File translation with automatic pdfLaTeX compilation and sanitized output option
     /usr/bin/texfot: invoking: pdflatex input.tex
     This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex)
     Output written on input.pdf (3 pages, 75489 bytes).
-    $> evince input.txt
+    $> evince input.pdf
 
 You can find example plain text file, config file and resulting pdf in the example folder.
 
